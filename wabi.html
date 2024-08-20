@@ -1,54 +1,9 @@
 <html>
       <head>
-        <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1"></meta>
-        <style type='text/css'>  
-            .helpButtonJakala {
-                position: fixed;
-                bottom: 12px;
-                right: 20px;
-                height: 46px;
-                -webkit-font-smoothing: subpixel-antialiased;
-                background-color: #3559F7;
-                color:#fff;
-                border:0px;
-                border-radius:5px 5px 0px 0px;
-                cursor:pointer;
-            }
-            .embeddedServiceHelpButton2 {
-                background-color: #3559F7;
-               
-            }
-            .embeddedServiceSidebarMinimizedDefaultUI{
-                opacity: 0 !important
-            }
-            .embeddedServiceHelpButton2 .embeddedServiceIcon {
-                position: relative;
-                z-index: 1;
-                display: inline-block;
-                margin: 10px;
-                line-height: 1;
-                vertical-align: top
-            }
-            .embeddedServiceHelpButton2 div[dir="rtl"] .embeddedServiceIcon {
-                margin-left: 10px;
-                margin-right: auto
-            }
-            .embeddedServiceHelpButton2 .embeddedServiceIcon::before {
-                font-family: "embeddedserviceiconfont";
-                font-size: 1.25em;
-                content: attr(data-icon);
-                speak: none;
-                text-rendering: auto;
-                font-weight: normal;
-                font-variant: normal;
-                text-transform: none;
-                -webkit-font-smoothing: antialiased;
-                -moz-osx-font-smoothing: grayscale
-            }	
-        </style>
+    
     </head>
         <body>
-           <style type='text/css'>
+          <style type='text/css'>
 	.embeddedServiceHelpButton .helpButton .uiButton {
 		background-color: #3559F7;
 		font-family: "Arial", sans-serif;
@@ -62,7 +17,7 @@
 <script type='text/javascript'>
 	var initESW = function(gslbBaseURL) {
 		embedded_svc.settings.displayHelpButton = true; //Or false
-		embedded_svc.settings.language = 'en'; //For example, enter 'en' or 'en-US'
+		embedded_svc.settings.language = ''; //For example, enter 'en' or 'en-US'
 
 		//embedded_svc.settings.defaultMinimizedText = '...'; //(Defaults to Chat with an Expert)
 		//embedded_svc.settings.disabledMinimizedText = '...'; //(Defaults to Agent Offline)
