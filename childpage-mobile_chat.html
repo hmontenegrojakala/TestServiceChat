@@ -1,8 +1,7 @@
 <html>
 
 <head>
-   <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=0">
-   <script type='text/javascript' src='https://service.force.com/embeddedservice/5.0/esw.min.js'></script>
+   <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=0">   
    <script type='text/javascript'>
        function onBodyLoaded() {
            /**
@@ -65,7 +64,7 @@
            }
        </style>
    </div>
-
+   <script type='text/javascript' src='https://service.force.com/embeddedservice/5.0/esw.min.js'></script>
    <script type='text/javascript'>
        var initESW = function (gslbBaseURL) {
          embedded_svc.settings.displayHelpButton = true; // Or false
@@ -97,7 +96,7 @@
            // Update the core URL below
            s.setAttribute('src', 'https://ulitycrm.my.salesforce.com/embeddedservice/5.0/esw.min.js');
            s.onload = function () {
-               initESW(null);
+               initESW('https://ulitycrm.my.salesforce.com/embeddedservice/5.0/esw.min.js');
            };
            document.body.appendChild(s);
        } else {
