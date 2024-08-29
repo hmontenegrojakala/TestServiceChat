@@ -9,7 +9,6 @@
   iframe{
     width: 100%;
     height:100%;
-    box-sizing: border-box;
     border: none;
   }
   </style>
@@ -22,25 +21,15 @@
       console.log(e.data.hasOwnProperty("frameHeight"));
       if (e.data.hasOwnProperty("frameHeight")) {
         var chatFrame = document.getElementById("chatFrame");
-        chatFrame.style.height = e.data.frameHeight + window.innerHeight; + "px";
-        chatFrame.style.width = e.data.frameWidth + window.innerWidth + "px";
-        console.log('entry');
+        chatFrame.style.height = e.data.frameHeight + 320 + "px";
+        chatFrame.style.width = e.data.frameWidth + 120 + "px";
       }
     };
   </script>
-    <script type='text/javascript'>
+  <body>
+    <div style ="bottom: 0px; right: 0px; position: absolute;" >
+      <iframe id="chatFrame" src= "https://htmlpreview.github.io/?https://github.com/hmontenegrojakala/TestServiceChat/blob/main/childpage_chat.html"></iframe>
+    </div>
+  </body>
 
-    var iPhone5S ='<div style ="bottom: 0px; right: 0px; position: absolute;" >      <iframe id="chatFrame" width="305" height="860"   src= "https://htmlpreview.github.io/?https://github.com/hmontenegrojakala/TestServiceChat/blob/main/childpage_chat.html"></iframe>    </div>';
-    var iPhone6 = '<div style ="bottom: 0px; right: 0px; position: absolute;" >      <iframe id="chatFrame" width="354" height="860"   src= "https://htmlpreview.github.io/?https://github.com/hmontenegrojakala/TestServiceChat/blob/main/childpage_chat.html"></iframe>    </div>';
-    var Web = '<div style ="bottom: 0px; right: 0px; position: absolute;" >      <iframe id="chatFrame" width="940" height="970"   src= "https://htmlpreview.github.io/?https://github.com/hmontenegrojakala/TestServiceChat/blob/main/childpage_chat.html"></iframe>    </div>';
-    
-    if (document.width < 321)
-    {document.write (iPhone5S)}
-    else if (document.width < 376)
-    {document.write (iPhone6)}
-    else
-    {document.write (Web)}
-    
-    </script> 
-  
 </html>
