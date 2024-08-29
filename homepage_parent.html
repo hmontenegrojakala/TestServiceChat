@@ -22,8 +22,8 @@
       console.log(e.data.hasOwnProperty("frameHeight"));
       if (e.data.hasOwnProperty("frameHeight")) {
         var chatFrame = document.getElementById("chatFrame");
-        chatFrame.style.height = e.data.frameHeight + 320 + "px";
-        chatFrame.style.width = e.data.frameWidth + 120 + "px";
+        chatFrame.style.height = e.data.frameHeight + window.innerHeight; + "px";
+        chatFrame.style.width = e.data.frameWidth + window.innerWidth + "px";
       }
     };
   </script>
