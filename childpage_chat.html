@@ -81,8 +81,8 @@
           var height = container.clientHeight;
           var width = container.clientWidth;
           window.parent.postMessage({
-            frameHeight: /*embedded_svc.settings.widgetHeight*/ window.innerWidth ,
-            frameWidth: /*embedded_svc.settings.widgetWidth*/ window.innerHeight;
+            frameHeight: embedded_svc.settings.widgetHeight ,
+            frameWidth:  embedded_svc.settings.widgetWidth;
           }, '*');
         });
 
