@@ -66,44 +66,36 @@
             }
         );
 
-            embedded_svc.addEventHandler("afterMinimize", function() {
-                var iframeContainer = document.querySelector('.iframe-container');
-                iframeContainer.style.height = '400px'; // Set a specific height when minimized
 
-                // Update dynamic widget dimensions
-                embedded_svc.settings.widgetWidth = window.innerWidth; 
-                embedded_svc.settings.widgetHeight = 400; 
+        embedded_svc.addEventHandler("afterMinimize", function() {
+          var sidebar = document.querySelector('.embeddedServiceSidebarMinimizedDefaultUI');
+          var height = sidebar.clientHeight;
+          var width = sidebar.clientWidth;
+          window.parent.postMessage({
+            frameHeight: height,
+            frameWidth: width
+           }, '*');
+        });
 
-                window.parent.postMessage({
-                    frameHeight:  window.innerHeight,
-                    frameWidth: window.innerWidth
-                }, '*');
-            });
+        embedded_svc.addEventHandler("afterMaximize", function() {
+          var container = document.querySelector('.dockableContainer');
+          var height = container.clientHeight;
+          var width = container.clientWidth;
+          window.parent.postMessage({
+            frameHeight: embedded_svc.settings.widgetHeight,
+            frameWidth: embedded_svc.settings.widgetWidth
+          }, '*');
+        });
 
-            embedded_svc.addEventHandler("afterMaximize", function() {
-                var iframeContainer = document.querySelector('.iframe-container');
-                iframeContainer.style.width = '100vw'; // Full width
-                iframeContainer.style.height = '100vh'; // Full height
-
-                // Update dynamic widget dimensions
-                embedded_svc.settings.widgetWidth = window.innerWidth; 
-                embedded_svc.settings.widgetHeight = window.innerHeight; 
-
-                window.parent.postMessage({
-                    frameHeight: window.innerHeight,
-                    frameWidth: window.innerWidth
-                }, '*');
-            });
-
-            embedded_svc.addEventHandler("afterDestroy", function() {
-                var height = document.querySelector('.helpButton').clientHeight;
-                var width = document.querySelector('.helpButton').clientWidth;
-                window.parent.postMessage({
-                    frameHeight: height,
-                    frameWidth: width
-                }, '*');
-            });
-        };
+        embedded_svc.addEventHandler("afterDestroy", function() {
+          var height = document.querySelector('.helpButton').clientHeight;
+          var width = document.querySelector('.helpButton').clientWidth;
+          window.parent.postMessage({
+            frameHeight: height,
+            frameWidth: width
+          }, '*');
+        });
+      };
 
       if (!window.embedded_svc) {
         var s = document.createElement('script');
