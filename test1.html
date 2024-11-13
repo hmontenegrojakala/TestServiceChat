@@ -1,30 +1,19 @@
-
-  <html>
-      <head>
-          <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1"></meta>
-          <style type='text/css'>
-            .embeddedServiceHelpButton .helpButton .uiButton {
-                background-color: #3559F7 !important;
-                font-family: "Arial", sans-serif;
-            }
-            .embeddedServiceHelpButton .helpButton .uiButton:focus {
-                outline: 1px solid #3559F7;
-            }
-          </style>
-      </head>
-      <body>
-         <style type='text/css'>
-          .embeddedServiceHelpButton .helpButton .uiButton {
-            background-color: #005290;
-            font-family: "Arial", sans-serif;
-          }
-    
-        .embeddedServiceHelpButton .helpButton .uiButton:focus {
-          outline: 1px solid #005290;
-        }
-        </style>
-      <script type='text/javascript' src='https://service.force.com/embeddedservice/5.0/esw.min.js'></script>
-        <script type='text/javascript'>
+<html>
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1">
+    <style type='text/css'>
+      .embeddedServiceHelpButton .helpButton .uiButton {
+        background-color: #3559F7 !important;
+        font-family: "Arial", sans-serif;
+      }
+      .embeddedServiceHelpButton .helpButton .uiButton:focus {
+        outline: 1px solid #3559F7;
+      }
+    </style>
+  </head>
+  <body>
+    <script type='text/javascript' src='https://service.force.com/embeddedservice/5.0/esw.min.js'></script>
+    <script type='text/javascript'>
       // On page load set the correct size of the iframe to account for either CWAE/Contact Us or Session Continuity.
       function helpButtonLoaded() {
         var helpButton = document.querySelector('.helpButton');
@@ -35,10 +24,11 @@
         var height = helpButton.clientHeight;
         var width = helpButton.clientWidth;
         window.parent.postMessage({
-                                  frameHeight: height,
-                                  frameWidth: width
-                                  }, '*'); // Used a * but for security reasons you can plug in the domain name.
+          frameHeight: height,
+          frameWidth: width
+        }, '*'); // Used a * but for security reasons you can plug in the domain name.
       }
+
       window.onload = helpButtonLoaded();
 
       var initESW = function(gslbBaseURL) {
@@ -51,19 +41,19 @@
         embedded_svc.settings.enabledFeatures = ['LiveAgent'];
         embedded_svc.settings.entryFeature = 'LiveAgent';
         embedded_svc.init(
-            'https://ulitycrm.my.salesforce.com',
-            'https://ulitycrm.my.site.com/',
-            gslbBaseURL,
-            '00D7Q0000090d00',
-            'BotFAQs',
-            {
-                baseLiveAgentContentURL: 'https://c.la2-c1-fra.salesforceliveagent.com/content',
-                deploymentId: '5727Q0000005XR8',
-                buttonId: '5737Q0000009FZs',
-                baseLiveAgentURL: 'https://d.la2-c1-fra.salesforceliveagent.com/chat',
-                eswLiveAgentDevName: 'BotFAQs',
-                isOfflineSupportEnabled: false
-            }
+          'https://ulitycrm.my.salesforce.com',
+          'https://ulitycrm.my.site.com/',
+          gslbBaseURL,
+          '00D7Q0000090d00',
+          'BotFAQs',
+          {
+            baseLiveAgentContentURL: 'https://c.la2-c1-fra.salesforceliveagent.com/content',
+            deploymentId: '5727Q0000005XR8',
+            buttonId: '5737Q0000009FZs',
+            baseLiveAgentURL: 'https://d.la2-c1-fra.salesforceliveagent.com/chat',
+            eswLiveAgentDevName: 'BotFAQs',
+            isOfflineSupportEnabled: false
+          }
         );
 
         embedded_svc.addEventHandler("afterMinimize", function() {
@@ -73,17 +63,28 @@
           window.parent.postMessage({
             frameHeight: height,
             frameWidth: width
-           }, '*');
+          }, '*');
         });
 
         embedded_svc.addEventHandler("afterMaximize", function() {
           var container = document.querySelector('.dockableContainer');
           var height = container.clientHeight;
           var width = container.clientWidth;
-          window.parent.postMessage({
-            frameHeight: embedded_svc.settings.widgetHeight ,
-            frameWidth:  embedded_svc.settings.widgetWidth
-          }, '*');
+
+          // Check if the screen size is mobile (less than or equal to 768px)
+          if (window.innerWidth <= 768) {
+            // Set iframe to full screen on mobile
+            window.parent.postMessage({
+              frameHeight: window.innerHeight, // Full screen height
+              frameWidth: window.innerWidth   // Full screen width
+            }, '*');
+          } else {
+            // For desktop, use the predefined settings
+            window.parent.postMessage({
+              frameHeight: embedded_svc.settings.widgetHeight,
+              frameWidth: embedded_svc.settings.widgetWidth
+            }, '*');
+          }
         });
 
         embedded_svc.addEventHandler("afterDestroy", function() {
@@ -106,7 +107,6 @@
       } else {
         initESW('https://ulitycrm.my.salesforce.com/embeddedservice/5.0/esw.min.js');
       }
-
     </script>
-      </body>
-  </html>
+  </body>
+</html>
