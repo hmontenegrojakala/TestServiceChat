@@ -43,19 +43,19 @@
       embedded_svc.settings.entryFeature = 'LiveAgent';
 
       embedded_svc.init(
-        'http://localhost.internal.salesforce.com:6109',
-        'http://localhost.force.com:6109/test1',
-        gslbBaseURL,
-        '00Dxx0000001gEW',
-        'omni_1',
-        {
-          baseLiveAgentContentURL: 'path/to/baseLiveAgentContentURL',
-          deploymentId: '572xx0000000001',
-          buttonId: '573xx0000000001',
-          baseLiveAgentURL: 'path/to/baseLiveAgentURL',
-          eswLiveAgentDevName: 'EmbeddedServiceLiveAgent_Parent04IRM0000004Dv12AE_16c4e028e49',
-          isOfflineSupportEnabled: true
-        }
+          'https://ulitycrm.my.salesforce.com',
+          'https://ulitycrm.my.site.com/',
+          gslbBaseURL,
+          '00D7Q0000090d00',
+          'BotFAQs',
+          {
+              baseLiveAgentContentURL: 'https://c.la2-c1-fra.salesforceliveagent.com/content',
+              deploymentId: '5727Q0000005XR8',
+              buttonId: '5737Q0000009FZs',
+              baseLiveAgentURL: 'https://d.la2-c1-fra.salesforceliveagent.com/chat',
+              eswLiveAgentDevName: 'BotFAQs',
+              isOfflineSupportEnabled: false
+          }
       );
 
       // Send appropriate sizes for mobile or desktop when minimized
