@@ -20,7 +20,28 @@
       font-family: Arial, sans-serif;
     }
   </style>
-  <script type="text/javascript" src="https://service.force.com/embeddedservice/5.0/esw.js"></script>
+    <script type="text/javascript" src="https://service.force.com/embeddedservice/5.0/esw.js"></script>
+   <script>
+    // Listen for the message from the parent page
+    window.addEventListener('message', function(event) {
+      // Security: Check the origin of the message to prevent cross-origin issues
+      if (event.origin !== 'https://ulitycrm.my.salesforce.com') {
+        return; // Ignore messages from unknown origins
+      }
+      
+      // Extract maxFrameHeight and maxFrameWidth from the received data
+      const data = event.data;
+      
+      // Check if the data contains maxFrameHeight and maxFrameWidth
+      if (data.maxFrameHeight && data.maxFrameWidth) {       
+        
+        embedded_svc.settings.widgetWidth = maxFrameHeight;
+        embedded_svc.settings.widgetHeight = maxFrameWidth;
+        console.log('Iframe dimensions set to max height:', data.maxFrameHeight, 'and max width:', data.maxFrameWidth);
+      }
+    });
+  </script>
+
   <script>
     function isMobile() {
       return /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
@@ -28,8 +49,8 @@
 
     function sendSizeToParent(height, width) {
       window.parent.postMessage({
-        frameHeight: 915,
-        frameWidth: 412,
+        frameHeight: height,
+        frameWidth: width,
       }, '*'); // Use '*' for simplicity or restrict to the parent's domain for security
     }
 
@@ -37,8 +58,8 @@
       embedded_svc.settings.displayHelpButton = true;
       embedded_svc.settings.language = 'en-US';
       embedded_svc.settings.devMode = true;
-      embedded_svc.settings.widgetWidth = 320;
-      embedded_svc.settings.widgetHeight = 498;
+      /*embedded_svc.settings.widgetWidth = 320;
+      embedded_svc.settings.widgetHeight = 498;*/
       embedded_svc.settings.enabledFeatures = ['LiveAgent'];
       embedded_svc.settings.entryFeature = 'LiveAgent';
 
