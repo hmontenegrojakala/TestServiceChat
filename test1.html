@@ -23,22 +23,17 @@
     <script type="text/javascript" src="https://service.force.com/embeddedservice/5.0/esw.js"></script>
    <script>
     // Listen for the message from the parent page
-    window.addEventListener('message', function(event) {console.log('entry'+event.data.maxFrameWidth+ ' '+data.maxFrameHeight);
+    window.addEventListener('message', function(event) {
       // Security: Check the origin of the message to prevent cross-origin issues
-      if (event.origin !== 'https://ulitycrm.my.salesforce.com') {
+      if (event.origin !=='https://ulitycrm.my.salesforce.com') {
         return; // Ignore messages from unknown origins
       }
       
-      // Extract maxFrameHeight and maxFrameWidth from the received data
+      // Log the message sent from the parent page
       const data = event.data;
-      
-      // Check if the data contains maxFrameHeight and maxFrameWidth
-      if (data.maxFrameHeight && data.maxFrameWidth) {       
-        
-        embedded_svc.settings.widgetWidth = data.maxFrameWidth;
-        embedded_svc.settings.widgetHeight = data.maxFrameHeight;
-        console.log('Iframe dimensions set to max height:', data.maxFrameHeight, 'and max width:', data.maxFrameWidth);
-      }
+      console.log('Message received from Parent:', data.message);
+      console.log('Frame height received:', data.frameHeight);
+      console.log('Frame width received:', data.frameWidth);
     });
   </script>
 
