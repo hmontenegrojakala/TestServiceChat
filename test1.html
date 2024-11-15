@@ -23,7 +23,7 @@
     <script type="text/javascript" src="https://service.force.com/embeddedservice/5.0/esw.js"></script>
    <script>
     // Listen for the message from the parent page
-    window.addEventListener('message', function(event) {console.log('entry'+event.data+ ' '+data.maxFrameHeight);
+    window.addEventListener('message', function(event) {console.log('entry'+event.data.maxFrameWidth+ ' '+data.maxFrameHeight);
       // Security: Check the origin of the message to prevent cross-origin issues
       if (event.origin !== 'https://ulitycrm.my.salesforce.com') {
         return; // Ignore messages from unknown origins
