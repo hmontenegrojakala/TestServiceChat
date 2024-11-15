@@ -42,7 +42,7 @@
       window.onload = helpButtonLoaded();
       console.log('hm1');
        window.addEventListener('message', function(event) {  console.log('hm2 -origin'+event.origin);
-      if (event.origin !== 'https://ulitycrm--c.vf.force.com/apex/VF_ChatBot_WABI_2') return; // Check the origin for security
+      if (event.origin !== 'https://ulitycrm.my.salesforce.com') return; // Check the origin for security
           const data = event.data;
     
           if (data.type === 'parentData') {  console.log('hm3');
