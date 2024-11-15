@@ -1,131 +1,100 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CHAT PAGE</title>
+  <style>
+    .embeddedServiceHelpButton .helpButton .uiButton {
+      background-color: #005290;
+      font-family: "Arial", sans-serif;
+    }
 
-  <html>
-      <head>
-          <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1"></meta>
-          <style type='text/css'>
-            .embeddedServiceHelpButton .helpButton .uiButton {
-                background-color: #3559F7 !important;
-                font-family: "Arial", sans-serif;
-            }
-            .embeddedServiceHelpButton .helpButton .uiButton:focus {
-                outline: 1px solid #3559F7;
-            }
-          </style>
-      </head>
-      <body>
-         <style type='text/css'>
-          .embeddedServiceHelpButton .helpButton .uiButton {
-            background-color: #005290;
-            font-family: "Arial", sans-serif;
-          }
-    
-        .embeddedServiceHelpButton .helpButton .uiButton:focus {
-          outline: 1px solid #005290;
+    .embeddedServiceHelpButton .helpButton .uiButton:focus {
+      outline: 1px solid #005290;
+    }
+
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: Arial, sans-serif;
+    }
+  </style>
+  <script type="text/javascript" src="https://service.force.com/embeddedservice/5.0/esw.js"></script>
+  <script>
+    function isMobile() {
+      return /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+    }
+
+    function sendSizeToParent(height, width) {
+      window.parent.postMessage({
+        frameHeight: height,
+        frameWidth: width,
+      }, '*'); // Use '*' for simplicity or restrict to the parent's domain for security
+    }
+
+    const initESW = function (gslbBaseURL) {
+      embedded_svc.settings.displayHelpButton = true;
+      embedded_svc.settings.language = 'en-US';
+      embedded_svc.settings.devMode = true;
+      embedded_svc.settings.widgetWidth = 320;
+      embedded_svc.settings.widgetHeight = 498;
+      embedded_svc.settings.enabledFeatures = ['LiveAgent'];
+      embedded_svc.settings.entryFeature = 'LiveAgent';
+
+      embedded_svc.init(
+        'http://localhost.internal.salesforce.com:6109',
+        'http://localhost.force.com:6109/test1',
+        gslbBaseURL,
+        '00Dxx0000001gEW',
+        'omni_1',
+        {
+          baseLiveAgentContentURL: 'path/to/baseLiveAgentContentURL',
+          deploymentId: '572xx0000000001',
+          buttonId: '573xx0000000001',
+          baseLiveAgentURL: 'path/to/baseLiveAgentURL',
+          eswLiveAgentDevName: 'EmbeddedServiceLiveAgent_Parent04IRM0000004Dv12AE_16c4e028e49',
+          isOfflineSupportEnabled: true
         }
-        </style>
-      <script type='text/javascript' src='https://service.force.com/embeddedservice/5.0/esw.min.js'></script>
-         <script type='text/javascript'>
-              window.addEventListener('message', function(event) {console.log('hm100');
-              // Security: Check the origin of the message to prevent cross-origin issues
-              if (event.origin !== 'https://ulitycrm.my.salesforce.com') return;
-              
-              // Extract maxFrameHeight and maxFrameWidth from the received data
-                                                                 console.log('hm102');
-              const data = event.data;console.log('hm103');
-              
-              // Check if the data contains maxFrameHeight and maxFrameWidth
-              if (data.maxFrameHeight && data.maxFrameWidth) {
-         
-                
-                console.log('Iframe dimensions set to max height:', data.maxFrameHeight, 'and max width:', data.maxFrameWidth);
-              }console.log('hm104');
-            });
-         </script>
-        <script type='text/javascript'>      
-      // On page load set the correct size of the iframe to account for either CWAE/Contact Us or Session Continuity.
-      function helpButtonLoaded() {         console.log('hm3');
-        var helpButton = document.querySelector('.helpButton');
-        if (!helpButton) {
-          window.setTimeout(helpButtonLoaded, 500);
-          return;
+      );
+
+      // Send appropriate sizes for mobile or desktop when minimized
+      embedded_svc.addEventHandler("afterMinimize", function () {
+        const sidebar = document.querySelector('.embeddedServiceSidebarMinimizedDefaultUI');
+        sendSizeToParent(sidebar.clientHeight, sidebar.clientWidth);
+      });
+
+      // Adjust to full-screen size on mobile when maximized
+      embedded_svc.addEventHandler("afterMaximize", function () {
+        const isFullScreen = isMobile();
+
+        if (isFullScreen) {
+          const height = window.innerHeight;
+          const width = window.innerWidth;
+          sendSizeToParent(height, width);
+        } else {
+          sendSizeToParent(embedded_svc.settings.widgetHeight, embedded_svc.settings.widgetWidth);
         }
-        var height = helpButton.clientHeight;
-        var width = helpButton.clientWidth;
-        window.parent.postMessage({
-                                  frameHeight: height,
-                                  frameWidth: width
-                                  }, '*');         console.log('hm4'); // Used a * but for security reasons you can plug in the domain name.
-      }
-      window.onload = helpButtonLoaded();          console.log('hm5');
-      var initESW = function(gslbBaseURL) {         console.log('hm6');
-        embedded_svc.settings.displayHelpButton = true; // Or false
-        embedded_svc.settings.language = 'es'; // For example, enter 'en' or 'en-US'
-        embedded_svc.settings.devMode = true;
-        embedded_svc.settings.defaultMinimizedText = '';
-        // Have set the widget height and width as a property on the object
-        embedded_svc.settings.widgetWidth = window.innerWidth;
-        embedded_svc.settings.widgetHeight =  window.innerHeight; ;
-        embedded_svc.settings.enabledFeatures = ['LiveAgent'];
-        embedded_svc.settings.entryFeature = 'LiveAgent';
-        embedded_svc.init(
-            'https://ulitycrm.my.salesforce.com',
-            'https://ulitycrm.my.site.com/',
-            gslbBaseURL,
-            '00D7Q0000090d00',
-            'BotFAQs',
-            {
-                baseLiveAgentContentURL: 'https://c.la2-c1-fra.salesforceliveagent.com/content',
-                deploymentId: '5727Q0000005XR8',
-                buttonId: '5737Q0000009FZs',
-                baseLiveAgentURL: 'https://d.la2-c1-fra.salesforceliveagent.com/chat',
-                eswLiveAgentDevName: 'BotFAQs',
-                isOfflineSupportEnabled: false
-            }
-        );
+      });
 
+      embedded_svc.addEventHandler("afterDestroy", function () {
+        const helpButton = document.querySelector('.helpButton');
+        sendSizeToParent(helpButton.clientHeight, helpButton.clientWidth);
+      });
+    };
 
-        embedded_svc.addEventHandler("afterMinimize", function() {
-          var sidebar = document.querySelector('.embeddedServiceSidebarMinimizedDefaultUI');
-          var height = sidebar.clientHeight;
-          var width = sidebar.clientWidth;
-          window.parent.postMessage({
-            frameHeight: height,
-            frameWidth: width
-           }, '*');
-        });
-
-        embedded_svc.addEventHandler("afterMaximize", function() {
-          console.log('hm7');
-          var container = document.querySelector('.dockableContainer');
-          var height = container.clientHeight;
-          var width = container.clientWidth;
-          window.parent.postMessage({
-            frameHeight: embedded_svc.settings.widgetHeight,
-            frameWidth: embedded_svc.settings.widgetWidth
-          }, '*');
-        });
-
-        embedded_svc.addEventHandler("afterDestroy", function() {
-          var height = document.querySelector('.helpButton').clientHeight;
-          var width = document.querySelector('.helpButton').clientWidth;
-          window.parent.postMessage({
-            frameHeight: height,
-            frameWidth: width
-          }, '*');
-        });
+    if (!window.embedded_svc) {
+      const script = document.createElement('script');
+      script.setAttribute('src', 'https://service.force.com/embeddedservice/5.0/esw.js');
+      script.onload = function () {
+        initESW(null);
       };
-
-      if (!window.embedded_svc) {
-        var s = document.createElement('script');
-        s.setAttribute('src', 'https://ulitycrm.my.salesforce.com/embeddedservice/5.0/esw.min.js');
-        s.onload = function() {
-          initESW(null);
-        };
-        document.body.appendChild(s);
-      } else {
-        initESW('https://ulitycrm.my.salesforce.com/embeddedservice/5.0/esw.min.js');
-      }
-
-    </script>
-      </body>
-  </html>
+      document.body.appendChild(script);
+    } else {
+      initESW(null);
+    }
+  </script>
+</head>
+<body>
+  <h1>Salesforce Chat</h1>
+</body>
+</html>
