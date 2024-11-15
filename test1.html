@@ -26,7 +26,7 @@
       <script type='text/javascript' src='https://service.force.com/embeddedservice/5.0/esw.min.js'></script>
         <script type='text/javascript'>
       // On page load set the correct size of the iframe to account for either CWAE/Contact Us or Session Continuity.
-      function helpButtonLoaded() {
+      function helpButtonLoaded() {         console.log('hm3');
         var helpButton = document.querySelector('.helpButton');
         if (!helpButton) {
           window.setTimeout(helpButtonLoaded, 500);
@@ -37,21 +37,10 @@
         window.parent.postMessage({
                                   frameHeight: height,
                                   frameWidth: width
-                                  }, '*'); // Used a * but for security reasons you can plug in the domain name.
+                                  }, '*');         console.log('hm4'); // Used a * but for security reasons you can plug in the domain name.
       }
-      window.onload = helpButtonLoaded();
-      console.log('hm1');
-       window.addEventListener('message', function(event) {  console.log('hm2 -origin'+event.origin);
-      if (event.origin !== 'https://ulitycrm.my.salesforce.com') return; // Check the origin for security
-          const data = event.data;
-    
-          if (data.type === 'parentData') {  console.log('hm3');
-              console.log('Received data from parent:', data.value);
-              // Use the received data as needed
-          }
-      });
-            console.log('hm4');
-      var initESW = function(gslbBaseURL) {
+      window.onload = helpButtonLoaded();          console.log('hm5');
+      var initESW = function(gslbBaseURL) {         console.log('hm6');
         embedded_svc.settings.displayHelpButton = true; // Or false
         embedded_svc.settings.language = 'es'; // For example, enter 'en' or 'en-US'
         embedded_svc.settings.devMode = true;
@@ -89,13 +78,14 @@
         });
 
         embedded_svc.addEventHandler("afterMaximize", function() {
+          console.log('hm7');
           var container = document.querySelector('.dockableContainer');
           var height = container.clientHeight;
           var width = container.clientWidth;
           window.parent.postMessage({
             frameHeight: embedded_svc.settings.widgetHeight,
             frameWidth: embedded_svc.settings.widgetWidth
-          }, '*');
+          }, '*');          console.log('hm8');
         });
 
         embedded_svc.addEventHandler("afterDestroy", function() {
