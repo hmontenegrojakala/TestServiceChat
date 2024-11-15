@@ -25,6 +25,22 @@
         </style>
       <script type='text/javascript' src='https://service.force.com/embeddedservice/5.0/esw.min.js'></script>
         <script type='text/javascript'>
+         window.addEventListener('message', function(event) {
+          // Security: Check the origin of the message to prevent cross-origin issues
+          if (event.origin !== window.location.origin) {
+            return; // Ignore messages from unknown origins
+          }
+          
+          // Extract maxFrameHeight and maxFrameWidth from the received data
+          const data = event.data;
+          
+          // Check if the data contains maxFrameHeight and maxFrameWidth
+          if (data.maxFrameHeight && data.maxFrameWidth) {
+     
+            
+            console.log('Iframe dimensions set to max height:', data.maxFrameHeight, 'and max width:', data.maxFrameWidth);
+          }
+        });
       // On page load set the correct size of the iframe to account for either CWAE/Contact Us or Session Continuity.
       function helpButtonLoaded() {         console.log('hm3');
         var helpButton = document.querySelector('.helpButton');
