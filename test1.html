@@ -100,8 +100,8 @@
           var height = container.clientHeight;
           var width = container.clientWidth;
           window.parent.postMessage({
-            frameHeight:  window.innerHeight,
-            frameWidth: window.innerWidth
+            frameHeight: embedded_svc.settings.widgetHeight,
+            frameWidth: embedded_svc.settings.widgetWidth
           }, '*');
         });
 
