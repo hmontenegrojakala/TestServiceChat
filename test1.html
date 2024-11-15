@@ -63,8 +63,8 @@
         embedded_svc.settings.devMode = true;
         embedded_svc.settings.defaultMinimizedText = '';
         // Have set the widget height and width as a property on the object
-        embedded_svc.settings.widgetWidth = 320;
-        embedded_svc.settings.widgetHeight = 498;
+        embedded_svc.settings.widgetWidth = window.innerWidth;
+        embedded_svc.settings.widgetHeight =  window.innerHeight; ;
         embedded_svc.settings.enabledFeatures = ['LiveAgent'];
         embedded_svc.settings.entryFeature = 'LiveAgent';
         embedded_svc.init(
