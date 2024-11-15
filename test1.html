@@ -28,8 +28,8 @@
 
     function sendSizeToParent(height, width) {
       window.parent.postMessage({
-        frameHeight: 412,
-        frameWidth: 915,
+        frameHeight: 915,
+        frameWidth: 412,
       }, '*'); // Use '*' for simplicity or restrict to the parent's domain for security
     }
 
