@@ -35,8 +35,8 @@
       // Check if the data contains maxFrameHeight and maxFrameWidth
       if (data.maxFrameHeight && data.maxFrameWidth) {       
         
-        embedded_svc.settings.widgetWidth = maxFrameHeight;
-        embedded_svc.settings.widgetHeight = maxFrameWidth;
+        embedded_svc.settings.widgetWidth = data.maxFrameWidth;
+        embedded_svc.settings.widgetHeight = data.maxFrameHeight;
         console.log('Iframe dimensions set to max height:', data.maxFrameHeight, 'and max width:', data.maxFrameWidth);
       }
     });
