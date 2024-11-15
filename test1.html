@@ -27,9 +27,7 @@
         <script type='text/javascript'>
          window.addEventListener('message', function(event) {console.log('hm100');
           // Security: Check the origin of the message to prevent cross-origin issues
-          if (event.origin !== window.location.origin) {console.log('hm101'+event.origin+' '+window.location.origin);
-            return; // Ignore messages from unknown origins
-          }
+          if (event.origin !== 'https://ulitycrm.my.salesforce.com') return;
           
           // Extract maxFrameHeight and maxFrameWidth from the received data
                                                              console.log('hm102');
