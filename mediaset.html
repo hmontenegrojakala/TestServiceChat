@@ -1,0 +1,70 @@
+<html>
+<input type="button" value="Conversar" onclick="startChat();"/>
+<style type='text/css'>
+	.embeddedServiceHelpButton .helpButton .uiButton {
+		background-color: #005290;
+		font-family: "Arial", sans-serif;
+	}
+	.embeddedServiceHelpButton .helpButton .uiButton:focus {
+		outline: 1px solid #005290;
+	}
+</style>
+
+<script type='text/javascript' src='https://service.force.com/embeddedservice/5.0/esw.min.js'></script>
+<script type='text/javascript'>
+	var initESW = function(gslbBaseURL) {
+		embedded_svc.settings.displayHelpButton = false; //Or false
+		embedded_svc.settings.language = ''; //For example, enter 'en' or 'en-US'
+		embedded_svc.settings.enabledFeatures = ['LiveAgent'];
+		embedded_svc.settings.entryFeature = 'LiveAgent';
+		embedded_svc.init(
+			'https://conecta5.my.salesforce.com',
+			'https://conecta5.my.site.com/',
+			gslbBaseURL,
+			'00D2p000000Pcr5',
+			'EinsteinBot',
+			{
+				baseLiveAgentContentURL: 'https://c.la1-core1.sfdc-cehfhs.salesforceliveagent.com/content',
+				deploymentId: '572P600000037mX',
+				buttonId: '573P60000000lYP',
+				baseLiveAgentURL: 'https://d.la1-core1.sfdc-cehfhs.salesforceliveagent.com/chat',
+				eswLiveAgentDevName: 'EinsteinBot',
+				isOfflineSupportEnabled: false
+			}
+		);
+	};
+
+	window.addEventListener("message", receiveMessage, false);
+	function receiveMessage(event) {
+	    var payload = event.data;
+	    if(payload && payload.type === "chasitor.sendMessage") {
+	        embedded_svc.postMessage("chasitor.sendMessage", payload.message);
+	    }else if(payload && payload.type === "chasitor.closeChat" ){
+		    console.log('Cerramos chat')
+		    embedded_svc.liveAgentAPI.clearSession();
+			//embedded_svc.liveAgentAPI.endChat();
+	    }
+		    
+	};
+
+	if (!window.embedded_svc) {
+		var s = document.createElement('script');
+		s.setAttribute('src', 'https://conecta5.my.salesforce.com/embeddedservice/5.0/esw.min.js');
+		s.onload = function() {
+			initESW(null);
+		};
+		document.body.appendChild(s);
+	} else {
+		initESW('https://service.force.com');
+	}
+</script>
+
+<script>
+	function startChat(){
+		embedded_svc.liveAgentAPI.startChat({
+		});
+	}
+</script>
+
+
+</html>
